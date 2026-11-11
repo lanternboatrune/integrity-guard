@@ -1,0 +1,4 @@
+{
+  "title": "Integrity Guard",
+  "description": "Keeps the Low integrity label inside the default workspace: Desktop, Downloads and similar folders are reset back to Medium, with the guarded scope configurable in Settings."
+}

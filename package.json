@@ -1,0 +1,54 @@
+{
+  "name": "@local/integrity-guard",
+  "version": "0.2.0",
+  "private": true,
+  "description": "DeepSeek Harness bundle plugin: keeps the Low integrity label confined to the default workspace by resetting stray low-labeled folders back to Medium.",
+  "type": "module",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./client": "./client.js",
+    "./locale/*.json": "./locale/*.json",
+    "./icon": "./icon.svg",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "index.js",
+    "client.js",
+    "lib/acl.js",
+    "lib/scan-paths.js",
+    "cordis.patch.yml",
+    "locale/*.json",
+    "icon.svg",
+    "README.md",
+    "CHANGELOG.md"
+  ],
+  "keywords": [
+    "dsh",
+    "deepseek-harness",
+    "dsh-plugin",
+    "cordis",
+    "plugin",
+    "windows",
+    "integrity-level",
+    "sandbox"
+  ],
+  "license": "MIT",
+  "engines": {
+    "dsh": ">=0.0.1"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "client": {
+      "platform": "web",
+      "immediately": true,
+      "inject": [
+        "@deepseek-ai/dsh-client-ui-conversation",
+        "@deepseek-ai/dsh-client-ui-sidebar",
+        "@deepseek-ai/dsh-client-ui-settings"
+      ]
+    }
+  }
+}
