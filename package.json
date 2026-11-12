@@ -1,6 +1,6 @@
 {
   "name": "@local/integrity-guard",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "private": true,
   "description": "DeepSeek Harness bundle plugin: keeps the Low integrity label confined to the default workspace by resetting stray low-labeled folders back to Medium.",
   "type": "module",

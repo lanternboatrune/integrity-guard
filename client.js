@@ -48,6 +48,7 @@ window.__ModuleLoader__.load({
       'checked': '检查 {n} 个目录',
       'fixed': '修复 {n} 个',
       'errors': '失败 {n} 个',
+      'adminHint': '改回 Medium 需要管理员权限。普通权限下会被系统拒绝访问，失败原因已逐条列在下面。',
       'took': '用时 {ms} ms',
       'kind.scan': '扫描',
       'kind.fixed': '修复',
@@ -87,6 +88,7 @@ window.__ModuleLoader__.load({
       'checked': 'checked {n} folders',
       'fixed': 'fixed {n}',
       'errors': 'failed {n}',
+      'adminHint': 'Resetting to Medium needs administrator rights. A normal process is denied access; each failure reason is listed below.',
       'took': 'took {ms} ms',
       'kind.scan': 'scan',
       'kind.fixed': 'fixed',
@@ -167,6 +169,8 @@ window.__ModuleLoader__.load({
       logTime: { fontFamily: 'ui-monospace, Consolas, monospace', fontSize: 11, color: 'var(--dsw-alias-label-tertiary)', flexShrink: 0 },
       logKind: { flexShrink: 0, fontWeight: 600, color: 'var(--dsw-alias-label-primary)' },
       logPath: { minWidth: 0, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' },
+      logBody: { minWidth: 0, display: 'flex', flexDirection: 'column' },
+      logReason: { fontSize: 11, color: 'var(--dsw-alias-state-error-primary, #c4553f)' },
     };
 
     async function call(body) {
@@ -453,6 +457,7 @@ window.__ModuleLoader__.load({
               onClick: scan,
             }, busyText),
           ]),
+          last && last.errors ? h('p', { key: 'hint', style: S.hint }, t('adminHint')) : null,
         ]),
 
         h(Group, { key: 'log', title: t('group.log') }, [
@@ -461,8 +466,13 @@ window.__ModuleLoader__.load({
                 h('div', { key: `${entry.at}-${index}`, style: S.logRow }, [
                   h('span', { key: 't', style: S.logTime }, formatTime(entry.at)),
                   h('span', { key: 'k', style: S.logKind }, t(`kind.${entry.kind}`)),
-                  h('span', { key: 'p', style: S.logPath, title: entry.path || entry.message || '' },
-                    entry.path || entry.message || ''),
+                  entry.message && entry.path
+                    ? h('div', { key: 'body', style: S.logBody }, [
+                        h('span', { key: 'p', style: S.logPath, title: entry.path }, entry.path),
+                        h('span', { key: 'm', style: S.logReason }, entry.message),
+                      ])
+                    : h('span', { key: 'p', style: S.logPath, title: entry.path || entry.message || '' },
+                        entry.path || entry.message || ''),
                 ])))
             : h('p', { key: 'empty', style: S.hint }, t('noLogs')),
         ]),

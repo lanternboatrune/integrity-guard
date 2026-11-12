@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.2.1 — 2026-11-12
+
+### Fixed
+
+- 失败日志改为「路径 + 原因」两行，原因从 icacls 输出里挑含 `Access is denied` 的行，不再只显示 `Successfully processed 0 files` 这类计数行。
+- 最近一次扫描有失败时，状态区显示提示：改回 Medium 需要管理员权限，普通权限下会被系统拒绝访问。
+
 ## 0.2.0 — 2026-11-11
 
 ### Added
